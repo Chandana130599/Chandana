@@ -1,0 +1,262 @@
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+
+public class AutomationDriver {
+
+	public static void main(String[] args)throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.qaclickacademy.com/practice.php ");
+		
+		AutomationDriver.exerciseone(driver);
+		AutomationDriver.exerciseTwo(driver);
+		AutomationDriver.exerciseThree(driver);
+		AutomationDriver.exerciseFour(driver);
+		AutomationDriver.exerciseFourPointOne(driver);
+		AutomationDriver.exerciseFourPointTwo(driver);
+		AutomationDriver.exerciseFive(driver);
+		AutomationDriver.exerciseSix(driver);
+		AutomationDriver.exerciseSeven(driver);
+		AutomationDriver.exerciseEight(driver);
+		AutomationDriver.exerciseNine(driver);
+		
+		
+		
+		
+	}
+
+	private static void exerciseNine(WebDriver driver) throws InterruptedException{
+		// TODO Auto-generated method stub
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		//creating javascriptExecutor object to inform selenium to run java code
+		js.executeScript("window.scrollBy(0,500)");
+	    //window movement
+	    Thread.sleep(1000);
+	  //create a class action and pass driver object/
+	    Actions a= new Actions(driver);
+	    Thread.sleep(2000);
+	    
+	    a.moveToElement(driver.findElement(By.xpath("//button[@id='mousehover']"))).build().perform();
+	    a.moveToElement(driver.findElement(By.tagName("a"))).build().perform();
+		
+	}
+
+	private static void exerciseEight(WebDriver driver) throws InterruptedException{
+		// TODO Auto-generated method stub
+	    JavascriptExecutor js=(JavascriptExecutor)driver;
+		//creating javascriptExecutor object to inform selenium to run java code
+	    js.executeScript("window.scrollBy(0,500)");
+	    //window movement
+	    Thread.sleep(1000);
+	    //verify the row present in the table contains content
+	    WebElement table = driver.findElement(By.id("product"));
+	    List<WebElement>secondrow = table.findElements(By.tagName("tr")).get(0).findElements(By.tagName("th"));
+	    System.out.println(secondrow.get(0).getText());
+	    System.out.println(secondrow.get(1).getText());
+	    System.out.println(secondrow.get(2).getText());
+	    Thread.sleep(2000);
+	    
+	}
+
+	private static void exerciseSeven(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		String text="Chandana";
+		driver.findElement(By.id("name")).sendKeys(text);
+		driver.findElement(By.xpath("//[@id='alertbtn']")).click();
+		Thread.sleep(2000);
+		System.out.println(driver.switchTo().alert().getText());
+		driver.switchTo().alert().accept();
+	}
+
+	private static void exerciseSix(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		driver.findElement(By.id("opentab")).click();
+		Set<String>window=driver.getWindowHandles();
+		Iterator<String>it=window.iterator();
+		String parentId = it.next();
+		String childId = it.next();
+		driver.switchTo().window(childId);
+		System.out.println(driver.getTitle());
+		Thread.sleep(3000);
+		driver.close();
+		Thread.sleep(1000);
+		
+		driver.switchTo().window(parentId);
+		System.out.println(driver.getTitle());	
+	}
+
+	private static void exerciseFive(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS );
+		driver.manage().window().maximize();
+		driver.get("http://www.qaclickacademy.com/practice.php");
+		driver.findElement(By.id("openwindow")).click();
+		Set<String>Windows = driver.getWindowHandles();
+		java.util.Iterator<String>iter=Windows.iterator();
+		String parentid = iter.next();
+		Thread.sleep(2000);
+		driver.switchTo().window(parentid);
+		
+	}
+
+	private static void exerciseFourPointTwo(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		Thread.sleep(1000);
+		List<WebElement>checkBoxes=driver.findElements(By.cssSelector("input[type='checkBox']"));
+		int size=checkBoxes.size();
+		int i;
+		for(i=0;i<size;i++)
+		{
+			Thread.sleep(1000);
+			checkBoxes.get(i).click();
+			System.out.println(checkBoxes.get(i).isSelected());
+		}
+
+		  Assert.assertTrue(true);	
+	
+	}
+
+	private static void exerciseFourPointOne(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		List<WebElement>AllcheckBoxes=driver.findElements(By.xpath("//input[@type='checkBox']"));
+		int size=AllcheckBoxes.size(), i;
+		System.out.println(size);
+		for(i=0;i<size;i++)
+		{
+			AllcheckBoxes.get(i).click();
+			System.out.println(AllcheckBoxes.get(i).isSelected());
+			
+		}
+			
+	}
+
+	private static void exerciseFour(WebDriver driver) throws InterruptedException {
+		// TODO Auto-generated method stub
+		//click the checkBox  "option1" by using checkboxOption
+		driver.findElement(By.id("checkBoxOption1")).click();
+		Thread.sleep(2500);
+		System.out.println(driver.findElement(By.id("checkBoxoption1")).isSelected());
+		//to Deselect option1
+		driver.findElement(By.id("checkBoxOption1")).click();
+		Thread.sleep(2500);
+		System.out.println(driver.findElement(By.id("checkBoxoption1")).isSelected());
+		
+		//click the checkBox  "option2" by using checkboxOption
+		driver.findElement(By.id("checkBoxOption2")).click();
+		Thread.sleep(2500);
+		System.out.println(driver.findElement(By.id("checkBoxoption2")).isSelected());
+		//to Deselect option2
+		driver.findElement(By.id("checkBoxOption2")).click();
+		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.id("checkBoxoption2")).isSelected());
+		
+		//click the checkBox  "option3" by using checkboxOption
+		driver.findElement(By.id("checkBoxOption3")).click();
+		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.id("checkBoxoption3")).isSelected());
+		//to Deselect option3
+		driver.findElement(By.id("checkBoxOption3")).click();
+		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.id("checkBoxoption3")).isSelected());
+		
+			
+		
+	}
+
+	private static void exerciseThree(WebDriver driver)throws InterruptedException {
+		// TODO Auto-generated method stub
+		driver.findElement(By.id("dropdown-class-example")).click();
+		driver.findElement(By.xpath("//*[@id=\'dropdown-class-example\']/option[1]")).isSelected();
+		//selecting the option1
+		Thread.sleep(1000);
+		List<WebElement>option1=driver.findElements(By.xpath("select[id='dropdown-class-example']"));
+		for(WebElement option:option1)
+		{
+			if(option.equals(option1))
+			{
+				option.click();
+				break;
+				
+			}
+		}
+
+		driver.findElement(By.xpath("//*[@id=\'dropdown-class-example\']/option[2]")).isSelected();
+		//selecting the option2
+		Thread.sleep(1000);
+		List<WebElement>option2=driver.findElements(By.xpath("select[id='dropdown-class-example']"));
+		for(WebElement option:option2)
+		{
+			if(option.equals(option2))
+			{
+				option.click();
+				break;
+				
+			}
+		}
+
+		
+		
+		driver.findElement(By.xpath("//*[@id=\'dropdown-class-example\']/option[3]")).isSelected();
+		//selecting the option3
+		Thread.sleep(1000);
+		List<WebElement>option3=driver.findElements(By.xpath("select[id='dropdown-class-example']"));
+		for(WebElement option:option3)
+		{
+			if(option.equals(option3))
+			{
+				option.click();
+				break;
+				
+			}
+		}
+
+		
+	}
+
+	private static void exerciseTwo(WebDriver driver) throws InterruptedException {
+		// TODO Auto-generated method stub
+		//type "United States" in "select countries" input field in suggestion classes
+		driver.findElement(By.xpath("//*[@id=\'autocomplete\']")).sendKeys("United States");
+		Thread.sleep(1000L);
+		List<WebElement>options=driver.findElements(By.xpath("div[class='ui-autocomplete-input']"));
+		for(WebElement option :options)
+		{
+			if(option.getText().contains("United States Minor Outlying Islands"));
+			{
+				option.click();
+				break;
+				
+			}
+		}
+		
+	}
+
+	private static void exerciseone(WebDriver driver) {
+		// TODO Auto-generated method stub
+		driver.findElement(By.xpath("//input[@value='radio1']")).click();
+		System.out.println(driver.findElement(By.xpath("//input[@value='radio1']")).isSelected());
+		driver.findElement(By.xpath("//input[@value='radio2']")).click();
+		System.out.println(driver.findElement(By.xpath("//input[@value='radio2']")).isSelected());
+		driver.findElement(By.xpath("//input[@value='radio3']")).click();
+		System.out.println(driver.findElement(By.xpath("//input[@value='radio3']")).isSelected());
+		
+		
+		
+		
+	}
+	
+	
+
+}
